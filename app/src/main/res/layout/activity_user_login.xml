@@ -60,7 +60,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="4"
                             android:hint="E-Mail"
-                            android:inputType="text" />
+                            android:inputType="textEmailAddress" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -84,6 +84,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/password_sign_in"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4"
