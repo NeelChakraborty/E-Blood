@@ -2,10 +2,8 @@ package com.example.android.e_blood;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.android.e_blood.R.drawable.email;
 
@@ -29,6 +29,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private static final String TAG = "Registration";
     private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, dobEditText, addressEditText, occupationEditText;
     private Spinner bloodgroup;
+    private DatabaseReference userDatabase;
+    private String userBloodGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         //initializing Firebase Authentication Object
         mAuth = FirebaseAuth.getInstance();
+
+        //initializing Firebase Database Object
+        userDatabase = FirebaseDatabase.getInstance().getReference();
 
         //initializing Views
         emailEditText = (EditText) findViewById(R.id.email_edit_text);
@@ -49,15 +54,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
         bloodgroup = (Spinner) findViewById(R.id.blood_group_spinner);
         View registerButton = (View) findViewById(R.id.register_button);
 
+        //ArrayAdapter for the Blood Group Spinner
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.blood_group, R.layout.spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bloodgroup.setAdapter(adapter);
         bloodgroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String userBloodGroup = bloodgroup.getItemAtPosition(position).toString();
+                userBloodGroup = bloodgroup.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -66,6 +71,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
+        //Authentication Listener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -80,6 +86,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 // ...
             }
         };
+        //Register On-Click
         registerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -90,6 +97,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     }
 
+    //RegisterUser
     private void registerUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
@@ -101,6 +109,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(UserRegistrationActivity.this, "You are not eligible. Sorry",
                                     Toast.LENGTH_SHORT).show();
@@ -111,7 +120,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 });
     }
 
+    //Add Details to Database
     private void addDetails() {
+        String name = nameEditText.getText().toString();
+        String phone = phoneEditText.getText().toString();
+        String dob = dobEditText.getText().toString();
+        String address = addressEditText.getText().toString();
+        String occupation = occupationEditText.getText().toString();
     }
 
     @Override
