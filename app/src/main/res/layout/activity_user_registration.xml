@@ -92,8 +92,8 @@
                         android:id="@+id/DOB_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="DOB"
-                        android:inputType="date" />
+                        android:hint="Age"
+                        android:inputType="number" />
 
                 </android.support.design.widget.TextInputLayout>
 

@@ -20,7 +20,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final String TAG = "Registration";
+    private static final String TAG = "SignIn";
     private EditText emailEditText;
     private EditText passwordEditText;
 
@@ -33,7 +33,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         emailEditText = (EditText) findViewById(R.id.email_sign_in);
         passwordEditText = (EditText) findViewById(R.id.password_sign_in);
-        View signInButton = (View) findViewById(R.id.sign_in);
+        View signInButton = findViewById(R.id.sign_in);
 
         TextView registerTextView = (TextView) findViewById(R.id.register);
         registerTextView.setOnClickListener(new View.OnClickListener() {

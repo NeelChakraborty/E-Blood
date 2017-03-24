@@ -1,6 +1,7 @@
 package com.example.android.e_blood;
 
 import android.app.Activity;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,10 +30,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "Registration";
-    private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, dobEditText, addressEditText, occupationEditText;
-    private Spinner bloodgroup;
-    private DatabaseReference userDatabase;
+    private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, ageEditText, addressEditText, occupationEditText;
+    private Spinner bloodgroupSpinner;
+    private DatabaseReference donorDatabase;
     private String userBloodGroup;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,28 +45,35 @@ public class UserRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //initializing Firebase Database Object
-        userDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApplicationId("1:281410145157:android:6a1794e09956e306") // Required for Analytics.
+                .setApiKey("AIzaSyB5MaQmmwSqgeVS9htvbVSMPizmuARkzYU") // Required for Auth.
+                .setDatabaseUrl("https://e-blood-f1d0c.firebaseio.com") // Required for RTDB.
+                .build();
+        FirebaseApp donorApp = FirebaseApp.initializeApp(this, options, "donors");
+        donorDatabase = FirebaseDatabase.getInstance(donorApp).getReference();
 
         //initializing Views
         emailEditText = (EditText) findViewById(R.id.email_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
         phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
-        dobEditText = (EditText) findViewById(R.id.DOB_edit_text);
+        ageEditText = (EditText) findViewById(R.id.DOB_edit_text);
         addressEditText = (EditText) findViewById(R.id.address_edit_text);
         occupationEditText = (EditText) findViewById(R.id.occupation_edit_text);
-        bloodgroup = (Spinner) findViewById(R.id.blood_group_spinner);
+        bloodgroupSpinner = (Spinner) findViewById(R.id.blood_group_spinner);
         View registerButton = (View) findViewById(R.id.register_button);
 
         //ArrayAdapter for the Blood Group Spinner
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.blood_group, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bloodgroup.setAdapter(adapter);
-        bloodgroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        bloodgroupSpinner.setAdapter(adapter);
+        bloodgroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                userBloodGroup = bloodgroup.getItemAtPosition(position).toString();
+                userBloodGroup = bloodgroupSpinner.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Bloood group is: " + userBloodGroup, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -70,6 +81,19 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //Register On-Click
+        registerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
+
+        //Get current user
+        FirebaseUser user = FirebaseAuth.getInstance(donorApp).getCurrentUser();
 
         //Authentication Listener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -86,15 +110,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 // ...
             }
         };
-        //Register On-Click
-        registerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
-
     }
 
     //RegisterUser
@@ -121,12 +136,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
     //Add Details to Database
-    private void addDetails() {
+    private void writeNewDonor() {
         String name = nameEditText.getText().toString();
-        String phone = phoneEditText.getText().toString();
-        String dob = dobEditText.getText().toString();
+        long phone = Long.parseLong(phoneEditText.getText().toString());
+        int age = Integer.parseInt(ageEditText.getText().toString());
         String address = addressEditText.getText().toString();
+        String bloodGroup = userBloodGroup;
         String occupation = occupationEditText.getText().toString();
+
+        Donor donor = new Donor(name, phone, age, address, bloodGroup, occupation);
+
+        donorDatabase.child("donors").child(user.getUid()).setValue(donor);
     }
 
     @Override
