@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.android.e_blood.R.drawable.email;
-
 public class UserRegistrationActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -34,7 +32,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private Spinner bloodgroupSpinner;
     private DatabaseReference donorDatabase;
     private String userBloodGroup;
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,24 +80,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
 
-
-        //Register On-Click
-        registerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
-
-        //Get current user
-        FirebaseUser user = FirebaseAuth.getInstance(donorApp).getCurrentUser();
-
         //Authentication Listener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -110,6 +95,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 // ...
             }
         };
+
+        //Register On-Click
+        registerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
     }
 
     //RegisterUser
@@ -124,19 +118,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-
                         if (!task.isSuccessful()) {
                             Toast.makeText(UserRegistrationActivity.this, "You are not eligible. Sorry",
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            writeNewDonor(task.getResult().getUser());
                         }
-
-                        // ...
                     }
                 });
     }
 
     //Add Details to Database
-    private void writeNewDonor() {
+    private void writeNewDonor(FirebaseUser user) {
         String name = nameEditText.getText().toString();
         long phone = Long.parseLong(phoneEditText.getText().toString());
         int age = Integer.parseInt(ageEditText.getText().toString());
@@ -146,7 +139,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         Donor donor = new Donor(name, phone, age, address, bloodGroup, occupation);
 
-        donorDatabase.child("donors").child(user.getUid()).setValue(donor);
+        donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donor.getName());
+        donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donor.getPhone());
+        donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donor.getAge());
+        donorDatabase.child("Donors").child(user.getUid()).child("Address").setValue(donor.getAddress());
+        donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donor.getBloodGroup());
+        donorDatabase.child("Donors").child(user.getUid()).child("Occupation").setValue(donor.getOccupation());
     }
 
     @Override
