@@ -2,12 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.example.android.e_blood.UserLoginActivity">
+    tools:context="com.example.android.e_blood.HopitalSignIn">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -55,7 +52,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
-                            android:id="@+id/email_sign_in"
+                            android:id="@+id/email_sign_in_hospital"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4"
@@ -84,7 +81,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
-                            android:id="@+id/password_sign_in"
+                            android:id="@+id/password_sign_in_hospital"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4"

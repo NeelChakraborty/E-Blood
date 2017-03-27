@@ -23,8 +23,13 @@
         <activity
             android:name=".UserLoginActivity"
             android:label="E-Blood" />
-        <activity android:name=".DonorDetails"
-            android:label="Your Details"/>
+        <activity
+            android:name=".DonorDetails"
+            android:label="Your Details" />
+        <activity android:name=".HospitalRegistratiom" />
+        <activity android:name=".HopitalSignIn" />
+        <activity android:name=".DonorList"
+            android:label="Donor List"/>
     </application>
 
 </manifest>

@@ -22,5 +22,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(userSignInIntent);
             }
         });
+
+        View hopitalButton = findViewById(R.id.hospital);
+        hopitalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent hospitalSignInIntent = new Intent(MainActivity.this, HopitalSignIn.class);
+                startActivity(hospitalSignInIntent);
+            }
+        });
     }
 }

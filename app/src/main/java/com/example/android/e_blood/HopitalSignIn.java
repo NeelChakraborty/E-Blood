@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Printer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,34 +17,37 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class UserLoginActivity extends AppCompatActivity {
+public class HopitalSignIn extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final String TAG = "SignIn";
-    private EditText emailEditText;
-    private EditText passwordEditText;
+    private String TAG =  "HospitalSignIn";
+    private EditText emailEditText, passwordEditText;
+    private View signInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_login);
+        setContentView(R.layout.activity_hopital_sign_in);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        emailEditText = (EditText) findViewById(R.id.email_sign_in);
-        passwordEditText = (EditText) findViewById(R.id.password_sign_in);
-        View signInButton = findViewById(R.id.sign_in);
-
-        TextView registerTextView = (TextView) findViewById(R.id.register);
+        //To go to Register
+        TextView registerTextView = (TextView)findViewById(R.id.register);
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent userRegistrationIntent = new Intent(UserLoginActivity.this, UserRegistrationActivity.class);
-                startActivity(userRegistrationIntent);
+                Intent hospitalRegisterIntent = new Intent(HopitalSignIn.this, HospitalRegistratiom.class);
+                startActivity(hospitalRegisterIntent);
             }
         });
 
+        //Retrieve email and password and button
+        emailEditText = (EditText)findViewById(R.id.email_sign_in_hospital);
+        passwordEditText = (EditText)findViewById(R.id.password_sign_in_hospital);
+        signInButton = findViewById(R.id.sign_in);
+
+        //Firebase Authentication Object Instantiation
+        mAuth = FirebaseAuth.getInstance();
+        //Authentication Listener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -59,16 +63,17 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         };
 
+        //Sign In onClickListener
         signInButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                signInUser();
+                signInHospital();
             }
         });
+
     }
 
-    private void signInUser() {
+    private void signInHospital(){
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         mAuth.signInWithEmailAndPassword(email, password)
@@ -82,17 +87,16 @@ public class UserLoginActivity extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(UserLoginActivity.this, "Wrong username or password",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HopitalSignIn.this, "Wrong email or password",
+                                     Toast.LENGTH_SHORT).show();
                         }else {
-                            Intent donorDetailsIntent = new Intent(UserLoginActivity.this, DonorDetails.class);
-                            startActivity(donorDetailsIntent);
+                            Intent donorList =  new Intent(HopitalSignIn.this, DonorList.class);
+                            startActivity(donorList);
                         }
 
                         // ...
                     }
                 });
-
     }
 
     @Override

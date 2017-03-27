@@ -1,6 +1,7 @@
 package com.example.android.e_blood;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,20 +44,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //initializing Firebase Database Object
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setApplicationId("1:281410145157:android:6a1794e09956e306") // Required for Analytics.
-                .setApiKey("AIzaSyB5MaQmmwSqgeVS9htvbVSMPizmuARkzYU") // Required for Auth.
-                .setDatabaseUrl("https://e-blood-f1d0c.firebaseio.com") // Required for RTDB.
-                .build();
-        FirebaseApp donorApp = FirebaseApp.initializeApp(this, options, "donors");
-        donorDatabase = FirebaseDatabase.getInstance(donorApp).getReference();
+        donorDatabase = FirebaseDatabase.getInstance().getReference();
 
         //initializing Views
         emailEditText = (EditText) findViewById(R.id.email_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
         phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
-        ageEditText = (EditText) findViewById(R.id.DOB_edit_text);
+        ageEditText = (EditText) findViewById(R.id.age_edit_text);
         addressEditText = (EditText) findViewById(R.id.address_edit_text);
         occupationEditText = (EditText) findViewById(R.id.occupation_edit_text);
         bloodgroupSpinner = (Spinner) findViewById(R.id.blood_group_spinner);
@@ -123,10 +118,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             writeNewDonor(task.getResult().getUser());
+                            Intent userDetails = new Intent(UserRegistrationActivity.this, DonorDetails.class);
+                            startActivity(userDetails);
                         }
                     }
                 });
     }
+
 
     //Add Details to Database
     private void writeNewDonor(FirebaseUser user) {
@@ -145,6 +143,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         donorDatabase.child("Donors").child(user.getUid()).child("Address").setValue(donor.getAddress());
         donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donor.getBloodGroup());
         donorDatabase.child("Donors").child(user.getUid()).child("Occupation").setValue(donor.getOccupation());
+
     }
 
     @Override

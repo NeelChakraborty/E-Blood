@@ -12,7 +12,7 @@
         <item name="android:textColor">#D32F2F</item>
         <item name="android:textSize">34sp</item>
     </style>
-    
+
     <style name="Buttons">
         <item name="android:backgroundTint" tools:targetApi="lollipop">#D32F2F</item>
         <item name="android:textColor">#FFFF</item>
@@ -37,8 +37,59 @@
         <item name="android:layout_marginRight">32dp</item>
         <item name="android:textColor">#757575</item>
     </style>
-    
+
     <style name="UserLabels">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#D32F2F</item>
     </style>
+
+    <style name="UserLabelsList">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#D32F2F</item>
+    </style>
+
+    <style name="UserDetailsLabels">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#757575</item>
+    </style>
+
+    <style name="UserDetailsLabelsList">
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#757575</item>
+    </style>
+
+    <style name="UserDetails">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">#757575</item>
+    </style>
+
+    <style name="UserDetailsList">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">#757575</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

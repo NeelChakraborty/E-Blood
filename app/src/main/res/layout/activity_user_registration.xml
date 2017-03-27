@@ -136,7 +136,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Gender:"
-                    android:textSize="20dp" />
+                    android:textSize="24sp" />
 
                 <RadioGroup
                     style="@style/RadioButtons"
@@ -181,7 +181,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Do u have any of the following?"
-                    android:textSize="20dp" />
+                    android:textSize="24sp" />
 
                 <CheckBox
                     android:id="@+id/cardiac_arrest"

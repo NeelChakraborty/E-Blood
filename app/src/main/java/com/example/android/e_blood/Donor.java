@@ -29,24 +29,47 @@ public class Donor {
         return name;
     }
 
-    long getPhone() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getPhone() {
         return phone;
     }
 
-    int getAge() {
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
+    public int getAge() {
         return age;
     }
 
-    String getAddress() {
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
         return address;
     }
 
-    String getBloodGroup() {
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBloodGroup() {
         return bloodGroup;
     }
 
-    String getOccupation() {
+    public String getOccupation() {
         return occupation;
     }
 
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
 }
