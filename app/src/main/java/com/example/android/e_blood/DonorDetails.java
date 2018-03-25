@@ -93,6 +93,7 @@ public class DonorDetails extends AppCompatActivity {
             addressTextView.setText(String.valueOf(ds.child(userID).child("Address").getValue()));
             bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("BloodGroup").getValue()));
             occupationTextView.setText(String.valueOf(ds.child(userID).child("Occupation").getValue()));
+            break;
         }
     }
 

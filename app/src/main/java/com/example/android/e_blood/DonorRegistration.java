@@ -1,8 +1,6 @@
 package com.example.android.e_blood;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,15 +14,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UserRegistrationActivity extends AppCompatActivity {
+public class DonorRegistration extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -114,11 +110,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(UserRegistrationActivity.this, "You are not eligible. Sorry",
+                            Toast.makeText(DonorRegistration.this, "You are not eligible. Sorry",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             writeNewDonor(task.getResult().getUser());
-                            Intent userDetails = new Intent(UserRegistrationActivity.this, DonorDetails.class);
+                            Intent userDetails = new Intent(DonorRegistration.this, DonorDetails.class);
                             startActivity(userDetails);
                         }
                     }
@@ -135,14 +131,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String bloodGroup = userBloodGroup;
         String occupation = occupationEditText.getText().toString();
 
-        Donor donor = new Donor(name, phone, age, address, bloodGroup, occupation);
-
-        donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donor.getName());
-        donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donor.getPhone());
-        donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donor.getAge());
-        donorDatabase.child("Donors").child(user.getUid()).child("Address").setValue(donor.getAddress());
-        donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donor.getBloodGroup());
-        donorDatabase.child("Donors").child(user.getUid()).child("Occupation").setValue(donor.getOccupation());
+        DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, address, bloodGroup, occupation);
+        donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donorDatabaseStructure.getName());
+        donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donorDatabaseStructure.getPhone());
+        donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donorDatabaseStructure.getAge());
+        donorDatabase.child("Donors").child(user.getUid()).child("Address").setValue(donorDatabaseStructure.getAddress());
+        donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donorDatabaseStructure.getBloodGroup());
+        donorDatabase.child("Donors").child(user.getUid()).child("Occupation").setValue(donorDatabaseStructure.getOccupation());
 
     }
 

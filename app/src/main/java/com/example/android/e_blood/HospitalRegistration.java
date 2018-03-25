@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class HospitalRegistratiom extends AppCompatActivity {
+public class HospitalRegistration extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -83,11 +82,11 @@ public class HospitalRegistratiom extends AppCompatActivity {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(HospitalRegistratiom.this, "You are not eligible. Sorry",
+                            Toast.makeText(HospitalRegistration.this, "You are not eligible. Sorry",
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             writeNewHospital(task.getResult().getUser());
-                            Intent donorList =  new Intent(HospitalRegistratiom.this, DonorList.class);
+                            Intent donorList =  new Intent(HospitalRegistration.this, DonorList.class);
                             startActivity(donorList);
                         }
                     }

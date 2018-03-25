@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Printer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HopitalSignIn extends AppCompatActivity {
+public class HopitalLogin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -35,7 +34,7 @@ public class HopitalSignIn extends AppCompatActivity {
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hospitalRegisterIntent = new Intent(HopitalSignIn.this, HospitalRegistratiom.class);
+                Intent hospitalRegisterIntent = new Intent(HopitalLogin.this, HospitalRegistration.class);
                 startActivity(hospitalRegisterIntent);
             }
         });
@@ -87,10 +86,10 @@ public class HopitalSignIn extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(HopitalSignIn.this, "Wrong email or password",
+                            Toast.makeText(HopitalLogin.this, "Wrong email or password",
                                      Toast.LENGTH_SHORT).show();
                         }else {
-                            Intent donorList =  new Intent(HopitalSignIn.this, DonorList.class);
+                            Intent donorList =  new Intent(HopitalLogin.this, DonorList.class);
                             startActivity(donorList);
                         }
 

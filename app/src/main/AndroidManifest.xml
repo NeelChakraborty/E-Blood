@@ -18,18 +18,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserRegistrationActivity"
-            android:label="E-Blood: Registration" />
+            android:name=".DonorRegistration"
+            android:label="E-Blood: Donor Registration" />
         <activity
-            android:name=".UserLoginActivity"
-            android:label="E-Blood" />
+            android:name=".DonorLogin"
+            android:label="E-Blood: Donor Login" />
         <activity
             android:name=".DonorDetails"
             android:label="Your Details" />
-        <activity android:name=".HospitalRegistratiom" />
-        <activity android:name=".HopitalSignIn" />
-        <activity android:name=".DonorList"
-            android:label="Donor List"/>
+        <activity
+            android:name=".HospitalRegistration"
+            android:label="E-Blood: Hospital Registration" />
+        <activity
+            android:name=".HopitalLogin"
+            android:label="E-Blood: Hospital Login" />
+        <activity
+            android:name=".DonorList"
+            android:label="Donor List" />
     </application>
 
 </manifest>

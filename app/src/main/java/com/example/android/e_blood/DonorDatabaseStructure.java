@@ -4,7 +4,7 @@ package com.example.android.e_blood;
  * Created by chakr_000 on 24-Mar-17.
  */
 
-public class Donor {
+public class DonorDatabaseStructure {
     private String name;
     private long phone;
     private int age;
@@ -12,11 +12,11 @@ public class Donor {
     private String bloodGroup;
     private String occupation;
 
-    public Donor() {
+    public DonorDatabaseStructure() {
 
     }
 
-    Donor(String name, long phone, int age, String address, String bloodGroup, String occupation) {
+    DonorDatabaseStructure(String name, long phone, int age, String address, String bloodGroup, String occupation) {
         this.name = name;
         this.phone = phone;
         this.age = age;

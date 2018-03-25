@@ -1,9 +1,9 @@
 package com.example.android.e_blood;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class UserLoginActivity extends AppCompatActivity {
+public class DonorLogin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -39,7 +39,7 @@ public class UserLoginActivity extends AppCompatActivity {
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent userRegistrationIntent = new Intent(UserLoginActivity.this, UserRegistrationActivity.class);
+                Intent userRegistrationIntent = new Intent(DonorLogin.this, DonorRegistration.class);
                 startActivity(userRegistrationIntent);
             }
         });
@@ -82,10 +82,10 @@ public class UserLoginActivity extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(UserLoginActivity.this, "Wrong username or password",
+                            Toast.makeText(DonorLogin.this, "Wrong username or password",
                                     Toast.LENGTH_SHORT).show();
                         }else {
-                            Intent donorDetailsIntent = new Intent(UserLoginActivity.this, DonorDetails.class);
+                            Intent donorDetailsIntent = new Intent(DonorLogin.this, DonorDetails.class);
                             startActivity(donorDetailsIntent);
                         }
 

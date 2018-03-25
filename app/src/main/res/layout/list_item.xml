@@ -34,14 +34,13 @@
         android:layout_height="wrap_content">
 
         <TextView
-
             style="@style/UserDetailsLabelsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BloodGroup: " />
+            android:text="Address: " />
 
         <TextView
-            android:id="@+id/BGListItem"
+            android:id="@+id/AddressListItem"
             style="@style/UserDetailsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -53,17 +52,18 @@
         android:layout_height="wrap_content">
 
         <TextView
+
             style="@style/UserDetailsLabelsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address: " />
+            android:text="BloodGroup: " />
 
         <TextView
-            android:id="@+id/AddressListItem"
+            android:id="@+id/BGListItem"
             style="@style/UserDetailsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 

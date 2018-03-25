@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Start Saving Lives...", Toast.LENGTH_SHORT).show();
-                Intent userSignInIntent = new Intent(MainActivity.this, UserLoginActivity.class);
+                Intent userSignInIntent = new Intent(MainActivity.this, DonorLogin.class);
                 startActivity(userSignInIntent);
             }
         });
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         hopitalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hospitalSignInIntent = new Intent(MainActivity.this, HopitalSignIn.class);
+                Intent hospitalSignInIntent = new Intent(MainActivity.this, HopitalLogin.class);
                 startActivity(hospitalSignInIntent);
             }
         });

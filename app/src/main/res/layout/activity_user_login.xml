@@ -7,7 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.example.android.e_blood.UserLoginActivity">
+    tools:context="com.example.android.e_blood.DonorLogin">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appBar"
+        android:layout_height="64dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donor Login"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -120,16 +136,6 @@
                         android:padding="@dimen/activity_horizontal_margin"
                         android:text="Register Now?"
                         android:textColor="#D32F2F" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:text="Forgot Password?"
-                        android:textColor="#D32F2F" />
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

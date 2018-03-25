@@ -11,4 +11,13 @@
         <item>AB-</item>
     </string-array>
     <string name="title_activity_donor_list">DonorList</string>
+    <string name="title_activity_donor_2">donor_activity_2</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_donor_list2">DonorList2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_donor_list_2">DonorList_2</string>
+    <string name="title_activity_donor_list_oneg">DonorListONeg</string>
 </resources>

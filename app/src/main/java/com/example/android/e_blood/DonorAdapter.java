@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,40 @@ import java.util.List;
 
 public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
 
-    public DonorAdapter(Activity context, ArrayList<DonorListStructure> DonorArrayList){
-        super(context, 0, (List<DonorListStructure>) DonorArrayList);
+    public DonorAdapter(DonorListOPos context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
     }
+
+    public DonorAdapter(DonorListONeg context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListAPos context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListANeg context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListBPos context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListBNeg context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListABPos context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+    public DonorAdapter(DonorListABNeg context, ArrayList<DonorListStructure> DonorArrayList){
+        super(context.getActivity(), 0, DonorArrayList);
+    }
+
+
+
 
     @NonNull
     @Override
