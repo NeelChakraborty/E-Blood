@@ -8,21 +8,17 @@ public class DonorDatabaseStructure {
     private String name;
     private long phone;
     private int age;
-    private String address;
     private String bloodGroup;
-    private String occupation;
 
     public DonorDatabaseStructure() {
 
     }
 
-    DonorDatabaseStructure(String name, long phone, int age, String address, String bloodGroup, String occupation) {
+    DonorDatabaseStructure(String name, long phone, int age, String bloodGroup) {
         this.name = name;
         this.phone = phone;
         this.age = age;
-        this.address = address;
         this.bloodGroup = bloodGroup;
-        this.occupation = occupation;
     }
 
     public String getName() {
@@ -49,24 +45,8 @@ public class DonorDatabaseStructure {
         this.age = age;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getBloodGroup() {
         return bloodGroup;
-    }
-
-    public String getOccupation() {
-        return occupation;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
     }
 
     public void setBloodGroup(String bloodGroup) {

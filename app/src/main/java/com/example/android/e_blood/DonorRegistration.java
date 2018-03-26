@@ -25,7 +25,7 @@ public class DonorRegistration extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "Registration";
-    private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, ageEditText, addressEditText, occupationEditText;
+    private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, ageEditText;
     private Spinner bloodgroupSpinner;
     private DatabaseReference donorDatabase;
     private String userBloodGroup;
@@ -48,8 +48,6 @@ public class DonorRegistration extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
         phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         ageEditText = (EditText) findViewById(R.id.age_edit_text);
-        addressEditText = (EditText) findViewById(R.id.address_edit_text);
-        occupationEditText = (EditText) findViewById(R.id.occupation_edit_text);
         bloodgroupSpinner = (Spinner) findViewById(R.id.blood_group_spinner);
         View registerButton = (View) findViewById(R.id.register_button);
 
@@ -127,17 +125,13 @@ public class DonorRegistration extends AppCompatActivity {
         String name = nameEditText.getText().toString();
         long phone = Long.parseLong(phoneEditText.getText().toString());
         int age = Integer.parseInt(ageEditText.getText().toString());
-        String address = addressEditText.getText().toString();
         String bloodGroup = userBloodGroup;
-        String occupation = occupationEditText.getText().toString();
 
-        DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, address, bloodGroup, occupation);
+        DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup);
         donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donorDatabaseStructure.getName());
         donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donorDatabaseStructure.getPhone());
         donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donorDatabaseStructure.getAge());
-        donorDatabase.child("Donors").child(user.getUid()).child("Address").setValue(donorDatabaseStructure.getAddress());
         donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donorDatabaseStructure.getBloodGroup());
-        donorDatabase.child("Donors").child(user.getUid()).child("Occupation").setValue(donorDatabaseStructure.getOccupation());
 
     }
 

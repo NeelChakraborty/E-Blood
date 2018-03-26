@@ -21,6 +21,11 @@
         <item name="android:layout_margin">@dimen/activity_horizontal_margin</item>
     </style>
 
+    <style name="SmallButtons">
+        <item name="android:backgroundTint" tools:targetApi="lollipop">#D32F2F</item>
+        <item name="android:textColor">#FFFF</item>
+    </style>
+
     <style name="Icons">
         <item name="android:width">36dp</item>
         <item name="android:height">36dp</item>

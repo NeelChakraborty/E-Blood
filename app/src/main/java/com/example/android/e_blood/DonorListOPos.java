@@ -56,10 +56,9 @@ public class DonorListOPos extends Fragment {
                     String name = (String) ds.child("Name").getValue();
                     String phone = String.valueOf(ds.child("Phone").getValue());
                     String bloodGroup = (String) ds.child("BloodGroup").getValue();
-                    String address = (String) ds.child("Address").getValue();
 
                     if (Objects.equals(bloodGroup, "O+")){
-                        donorsOPos.add(new DonorListStructure(name, phone, address, bloodGroup));
+                        donorsOPos.add(new DonorListStructure(name, phone, bloodGroup));
                         Log.d(TAG, "Donors is: " + donorsOPos);
                     }
 

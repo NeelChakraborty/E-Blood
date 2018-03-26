@@ -27,7 +27,7 @@ public class DonorDetails extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    private TextView nameTextView, ageTextView, contactTextView, addressTextView, occupationTextView, bloodGroupTextView;
+    private TextView nameTextView, ageTextView, contactTextView, bloodGroupTextView;
     String userID;
 
     @Override
@@ -39,8 +39,6 @@ public class DonorDetails extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.name_details_text_view);
         ageTextView = (TextView) findViewById(R.id.age_details_text_view);
         contactTextView = (TextView) findViewById(R.id.number_details_text_view);
-        addressTextView = (TextView) findViewById(R.id.address_details_text_view);
-        occupationTextView = (TextView) findViewById(R.id.occupation_details_text_view);
         bloodGroupTextView = (TextView) findViewById(R.id.blood_group_details_text_view);
 
         //initializing Firebase Database Objects
@@ -90,9 +88,7 @@ public class DonorDetails extends AppCompatActivity {
             nameTextView.setText(String.valueOf(ds.child(userID).child("Name").getValue()));
             contactTextView.setText(String.valueOf(ds.child(userID).child("Phone").getValue()));
             ageTextView.setText(String.valueOf(ds.child(userID).child("Age").getValue()));
-            addressTextView.setText(String.valueOf(ds.child(userID).child("Address").getValue()));
             bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("BloodGroup").getValue()));
-            occupationTextView.setText(String.valueOf(ds.child(userID).child("Occupation").getValue()));
             break;
         }
     }

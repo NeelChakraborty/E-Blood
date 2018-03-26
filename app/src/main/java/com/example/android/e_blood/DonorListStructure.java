@@ -7,22 +7,16 @@ package com.example.android.e_blood;
 public class DonorListStructure {
     private String name;
     private String phone;
-    private String address;
     private String bloodGroup;
 
-    DonorListStructure(String name, String phone, String address, String bloodGroup) {
+    DonorListStructure(String name, String phone, String bloodGroup) {
         this.name = name;
         this.phone = phone;
-        this.address = address;
         this.bloodGroup = bloodGroup;
     }
 
     String getName() {
         return name;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     String getPhone() {

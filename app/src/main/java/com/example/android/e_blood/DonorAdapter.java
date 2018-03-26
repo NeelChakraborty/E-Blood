@@ -76,9 +76,6 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
         TextView donorBloodGroup = (TextView)donorList.findViewById(R.id.BGListItem);
         donorBloodGroup.setText(currentDonor.getBloodGroup());
 
-        TextView donorAddress = (TextView)donorList.findViewById(R.id.AddressListItem);
-        donorAddress.setText(currentDonor.getAddress());
-
         return donorList;
     }
 }
