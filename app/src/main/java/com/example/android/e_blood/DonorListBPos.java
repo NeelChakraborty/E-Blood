@@ -66,13 +66,6 @@ public class DonorListBPos extends Fragment {
                 donorAdapter = new DonorAdapter(DonorListBPos.this, donorsBPos);
                 ListView listView = (ListView) view.findViewById(R.id.list_bpos);
                 listView.setAdapter(donorAdapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        DonorListStructure donorListStructure = donorsBPos.get(position);
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", donorListStructure.getPhone(), null)));
-                    }
-                });
             }
 
             @Override

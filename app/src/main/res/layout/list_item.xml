@@ -12,41 +12,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/PhoneHeading"
             style="@style/UserDetailsLabelsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
             android:text="Phone: " />
 
         <TextView
             android:id="@+id/PhoneListItem"
             style="@style/UserDetailsList"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/PhoneHeading"/>
 
         <Button
             android:id="@+id/navigate"
             style="@style/SmallButtons"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:gravity="center"
-            android:text="t" />
+            android:layout_marginRight="24dp"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/map">
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+        </Button>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-
+            android:id="@+id/BloodGroupHeading"
             style="@style/UserDetailsLabelsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
             android:text="BloodGroup: " />
 
         <TextView
@@ -54,6 +66,8 @@
             style="@style/UserDetailsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/BloodGroupHeading"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp" />
 
         <Button
@@ -62,8 +76,11 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:gravity="center"
-            android:text="t" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp"
+            android:drawableRight="@drawable/sms">
+        </Button>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -66,13 +66,6 @@ public class DonorListONeg extends Fragment {
                 donorAdapter = new DonorAdapter(DonorListONeg.this, donorsONeg);
                 ListView listView = (ListView) view.findViewById(R.id.list_oneg);
                 listView.setAdapter(donorAdapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        DonorListStructure donorListStructure = donorsONeg.get(position);
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", donorListStructure.getPhone(), null)));
-                    }
-                });
             }
 
             @Override

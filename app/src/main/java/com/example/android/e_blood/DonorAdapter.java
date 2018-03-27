@@ -2,6 +2,8 @@ package com.example.android.e_blood;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.provider.UserDictionary;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Button;
 
 import com.google.firebase.database.ValueEventListener;
 
@@ -60,7 +63,7 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View donorList = convertView;
         if (donorList == null)
             donorList = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
@@ -76,6 +79,14 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
         TextView donorBloodGroup = (TextView)donorList.findViewById(R.id.BGListItem);
         donorBloodGroup.setText(currentDonor.getBloodGroup());
 
+
+        Button smsbutton = donorList.findViewById(R.id.sms);
+        smsbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", currentDonor.getPhone(), null)));
+            }
+        });
         return donorList;
     }
 }
