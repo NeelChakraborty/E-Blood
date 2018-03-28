@@ -52,6 +52,16 @@
                     android:textColor="#D32F2F"
                     android:textSize="34sp" />
 
+                <TextView
+                    android:id="@+id/fetching_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:text="Please wait while we fetch your location..."
+                    android:textColor="#D32F2F"
+                    android:textSize="14sp" />
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="E-mail"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textWebEmailAddress" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -114,51 +124,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Gender:"
-                    android:textSize="20dp" />
-
-                <RadioGroup
-                    style="@style/RadioButtons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/male_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Male"
-                        android:textColor="#757575" />
-
-                    <RadioButton
-                        android:id="@+id/female_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Female"
-                        android:textColor="#757575" />
-
-                    <RadioButton
-                        android:id="@+id/others_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Others"
-                        android:textColor="#757575" />
-                </RadioGroup>
-
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -191,17 +156,6 @@
                         android:inputType="textPassword" />
 
                 </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/fetching_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Please wait while we fetch your location..."
-                    android:textSize="14dp" />
 
                 <Button
                     android:id="@+id/register_button"

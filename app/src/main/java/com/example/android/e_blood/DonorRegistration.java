@@ -2,6 +2,8 @@ package com.example.android.e_blood;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +32,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class DonorRegistration extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -199,7 +205,16 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         lat = Double.valueOf(Double.toString(location.getLatitude()));
         lng = Double.valueOf(Double.toString(location.getLongitude()));
         Toast.makeText(this, "Location Updated", Toast.LENGTH_LONG).show();
-        temp.setVisibility(View.GONE);
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            String tmp=addresses.get(0).getAddressLine(0);
+            temp.setText("Detected city is : "+tmp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         registerButton.setVisibility(View.VISIBLE);
     }
 

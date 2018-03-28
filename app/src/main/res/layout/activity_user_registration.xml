@@ -52,6 +52,16 @@
                     android:textColor="#D32F2F"
                     android:textSize="34sp" />
 
+                <TextView
+                    android:id="@+id/fetching_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:text="Please wait while we fetch your location..."
+                    android:textColor="#D32F2F"
+                    android:textSize="14sp" />
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,17 +156,6 @@
                         android:inputType="textPassword" />
 
                 </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/fetching_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Please wait while we fetch your location..."
-                    android:textSize="14dp" />
 
                 <Button
                     android:id="@+id/register_button"
