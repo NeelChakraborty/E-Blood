@@ -204,8 +204,8 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-            String tmp=addresses.get(0).getAddressLine(0);
-            temp.setText("Detected city is : "+tmp);
+            String tmp=addresses.get(0).getSubLocality()+" , "+addresses.get(0).getLocality();
+            temp.setText("Detected city is : "+tmp+".");
         } catch (IOException e) {
             e.printStackTrace();
         }
