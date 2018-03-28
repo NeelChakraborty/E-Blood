@@ -53,6 +53,9 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
     private LocationRequest locationRequest;
     private Double lat;
     private Double lng;
+    private String city;
+    private  String locality;
+    private String full_address;
 
 
     @Override
@@ -175,6 +178,9 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
 
         DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup, lat, lng);
         donorDatabase.child("Donors").child(user.getUid()).setValue(donorDatabaseStructure);
+        donorDatabase.child("Donors").child(user.getUid()).child("city").setValue(city);
+        donorDatabase.child("Donors").child(user.getUid()).child("locality").setValue(locality);
+        donorDatabase.child("Donors").child(user.getUid()).child("fullAddress").setValue(full_address);
     }
 
     @Override
@@ -205,7 +211,10 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             String tmp=addresses.get(0).getSubLocality()+" , "+addresses.get(0).getLocality();
-            temp.setText("Detected city is : "+tmp+".");
+            city = addresses.get(0).getLocality();
+            locality = addresses.get(0).getSubLocality();
+            full_address = addresses.get(0).getAddressLine(0);
+            temp.setText("Detected locality is : "+tmp+".");
         } catch (IOException e) {
             e.printStackTrace();
         }

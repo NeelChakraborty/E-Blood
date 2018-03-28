@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -34,6 +36,7 @@ public class DonorDetails extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private TextView nameTextView, ageTextView, contactTextView, bloodGroupTextView, addressTextView;
+    private Button update;
     String userID;
 
     @Override
@@ -92,26 +95,11 @@ public class DonorDetails extends AppCompatActivity {
             Log.d(TAG, "UserID inside ShowData: "+userID);
             Log.d(TAG, "User Name inside ShowData: "+ds.child(userID).child("name").getValue());
 
-
-            Double lat = (Double) ds.child(userID).child("latitude").getValue();
-            Double lng = (Double) ds.child(userID).child("longitude").getValue();
-
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
-            try {
-                List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-                String tmp=addresses.get(0).getAddressLine(0);
-                addressTextView.setText(tmp);
-                Log.d(TAG, "Address: "+tmp);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             nameTextView.setText(String.valueOf(ds.child(userID).child("name").getValue()));
             contactTextView.setText(String.valueOf(ds.child(userID).child("phone").getValue()));
             ageTextView.setText(String.valueOf(ds.child(userID).child("age").getValue()));
             bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("bloodGroup").getValue()));
-
+            addressTextView.setText(String.valueOf(ds.child(userID).child("fullAddress").getValue()));
             break;
         }
     }
