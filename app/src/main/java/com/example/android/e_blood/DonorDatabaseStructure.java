@@ -5,43 +5,43 @@ package com.example.android.e_blood;
  */
 
 public class DonorDatabaseStructure {
-    private String name;
-    private long phone;
-    private int age;
-    private String bloodGroup;
-    private Double lat;
-    private Double lng;
+    private String Name;
+    private long Phone;
+    private int Age;
+    private String BloodGroup;
+    private Double Latitude;
+    private Double Longitude;
 
     public DonorDatabaseStructure() {
 
     }
 
-    DonorDatabaseStructure(String name, long phone, int age, String bloodGroup, Double lat, Double lng) {
-        this.name = name;
-        this.phone = phone;
-        this.age = age;
-        this.bloodGroup = bloodGroup;
-        this.lat = lat;
-        this.lng = lng;
+    DonorDatabaseStructure(String Name, long Phone, int Age, String BloodGroup, Double Latitude, Double Longitude) {
+        this.Name = Name;
+        this.Phone = Phone;
+        this.Age = Age;
+        this.BloodGroup = BloodGroup;
+        this.Latitude = Latitude;
+        this.Longitude = Longitude;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public long getPhone() {
-        return phone;
+        return Phone;
     }
 
     public int getAge() {
-        return age;
+        return Age;
     }
 
     public String getBloodGroup() {
-        return bloodGroup;
+        return BloodGroup;
     }
 
-    public  Double getLat(){ return lat;}
-
-    public  Double getLng(){ return lng;}
+    public  Double getLatitude(){ return Latitude;}
+    
+    public  Double getLongitude(){ return Longitude;}
 }

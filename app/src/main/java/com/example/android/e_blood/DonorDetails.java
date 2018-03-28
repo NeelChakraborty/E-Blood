@@ -83,12 +83,12 @@ public class DonorDetails extends AppCompatActivity {
     private void showData(DataSnapshot dataSnapshot) {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
             Log.d(TAG, "UserID inside ShowData: "+userID);
-            Log.d(TAG, "User Name inside ShowData: "+ds.child(userID).child("Name").getValue());
+            Log.d(TAG, "User Name inside ShowData: "+ds.child(userID).child("name").getValue());
 
-            nameTextView.setText(String.valueOf(ds.child(userID).child("Name").getValue()));
-            contactTextView.setText(String.valueOf(ds.child(userID).child("Phone").getValue()));
-            ageTextView.setText(String.valueOf(ds.child(userID).child("Age").getValue()));
-            bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("BloodGroup").getValue()));
+            nameTextView.setText(String.valueOf(ds.child(userID).child("name").getValue()));
+            contactTextView.setText(String.valueOf(ds.child(userID).child("phone").getValue()));
+            ageTextView.setText(String.valueOf(ds.child(userID).child("age").getValue()));
+            bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("bloodGroup").getValue()));
             break;
         }
     }

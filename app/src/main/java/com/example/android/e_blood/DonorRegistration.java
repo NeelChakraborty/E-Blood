@@ -174,12 +174,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         String bloodGroup = userBloodGroup;
 
         DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup, lat, lng);
-        donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donorDatabaseStructure.getName());
-        donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donorDatabaseStructure.getPhone());
-        donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donorDatabaseStructure.getAge());
-        donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donorDatabaseStructure.getBloodGroup());
-        donorDatabase.child("Donors").child(user.getUid()).child("Latitude").setValue(donorDatabaseStructure.getLat());
-        donorDatabase.child("Donors").child(user.getUid()).child("Longitude").setValue(donorDatabaseStructure.getLng());
+        donorDatabase.child("Donors").child(user.getUid()).setValue(donorDatabaseStructure);
     }
 
     @Override
