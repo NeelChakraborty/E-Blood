@@ -9,6 +9,8 @@ public class DonorDatabaseStructure {
     private long phone;
     private int age;
     private String bloodGroup;
+    private Double lat;
+    private Double lng;
 
     public DonorDatabaseStructure() {
 
@@ -19,6 +21,8 @@ public class DonorDatabaseStructure {
         this.phone = phone;
         this.age = age;
         this.bloodGroup = bloodGroup;
+        //this.lat = lat;
+        //this.lng = lng;
     }
 
     public String getName() {

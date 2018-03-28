@@ -1,35 +1,53 @@
 package com.example.android.e_blood;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.location.LocationListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DonorRegistration extends AppCompatActivity {
+public class DonorRegistration extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final String TAG = "Registration";
+    private static final String TAG = "Map";
     private EditText emailEditText, passwordEditText, nameEditText, phoneEditText, ageEditText;
     private Spinner bloodgroupSpinner;
     private DatabaseReference donorDatabase;
     private String userBloodGroup;
     private FirebaseUser user;
+    private TextView temp;
+    private Button registerButton;
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
+    private Double lat;
+    private Double lng;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +57,28 @@ public class DonorRegistration extends AppCompatActivity {
         //initializing Firebase Authentication Object
         mAuth = FirebaseAuth.getInstance();
 
+        //initializing GoogleApiClient
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+
+
         //initializing Firebase Database Object
         donorDatabase = FirebaseDatabase.getInstance().getReference();
 
         //initializing Views
+        temp = (TextView) findViewById(R.id.fetching_location);
         emailEditText = (EditText) findViewById(R.id.email_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
         phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         ageEditText = (EditText) findViewById(R.id.age_edit_text);
         bloodgroupSpinner = (Spinner) findViewById(R.id.blood_group_spinner);
-        View registerButton = (View) findViewById(R.id.register_button);
+        registerButton = (Button) findViewById(R.id.register_button);
+        registerButton.setEnabled(false);
 
         //ArrayAdapter for the Blood Group Spinner
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -139,6 +168,8 @@ public class DonorRegistration extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        //connecting API
+        googleApiClient.connect();
     }
 
     @Override
@@ -147,5 +178,37 @@ public class DonorRegistration extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        //disconnecting API
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lat = Double.valueOf(Double.toString(location.getLatitude()));
+        lng = Double.valueOf(Double.toString(location.getLongitude()));
+        Toast.makeText(this, "Location Changed "+lat+" & "+lng, Toast.LENGTH_LONG).show();
+        temp.setVisibility(View.GONE);
+        registerButton.setEnabled(true);
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10);
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i(TAG, "GoogleApiClient connection has been suspend");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG, "GoogleApiClient connection has been suspend");
+        Log.i(TAG, "GoogleApiClient connection has failed");
     }
 }
