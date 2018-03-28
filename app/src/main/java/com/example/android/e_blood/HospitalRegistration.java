@@ -64,7 +64,19 @@ public class HospitalRegistration extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                registerHospital();
+
+                if( emailEditText.getText().toString().isEmpty() ||
+                    nameEditText.getText().toString().isEmpty() ||
+                    locationEditText.getText().toString().isEmpty() ||
+                    passwordEditText.getText().toString().isEmpty()){
+
+                    Toast.makeText(HospitalRegistration.this, "Please fill up all the fields",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    registerHospital();
+                }
+
             }
         });
     }
@@ -83,7 +95,7 @@ public class HospitalRegistration extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Toast.makeText(HospitalRegistration.this, "You are not eligible. Sorry",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }else {
                             writeNewHospital(task.getResult().getUser());
                             Intent donorList =  new Intent(HospitalRegistration.this, DonorList.class);

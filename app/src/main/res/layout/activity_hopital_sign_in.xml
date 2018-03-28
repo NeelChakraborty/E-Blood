@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E0E0E0"
     android:orientation="vertical"
-    tools:context="com.example.android.e_blood.HopitalLogin">
+    tools:context="com.example.android.e_blood.HospitalLogin">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

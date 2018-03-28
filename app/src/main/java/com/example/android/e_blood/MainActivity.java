@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Start Saving Lives...", Toast.LENGTH_SHORT).show();
+
                 Intent userSignInIntent = new Intent(MainActivity.this, DonorLogin.class);
                 startActivity(userSignInIntent);
             }
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         hopitalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hospitalSignInIntent = new Intent(MainActivity.this, HopitalLogin.class);
+                Intent hospitalSignInIntent = new Intent(MainActivity.this, HospitalLogin.class);
                 startActivity(hospitalSignInIntent);
             }
         });

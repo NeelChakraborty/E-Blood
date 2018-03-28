@@ -119,7 +119,18 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
 
             @Override
             public void onClick(View v) {
-                registerUser();
+
+                if( emailEditText.getText().toString().isEmpty() ||
+                    nameEditText.getText().toString().isEmpty() ||
+                    phoneEditText.getText().toString().isEmpty() ||
+                    ageEditText.getText().toString().isEmpty() ||
+                    passwordEditText.getText().toString().isEmpty()){
+                    Toast.makeText(DonorRegistration.this, "Please fill up all the fields",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    registerUser();
+                }
             }
         });
     }
@@ -197,8 +208,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(100);
-
+        locationRequest.setInterval(100000);
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 

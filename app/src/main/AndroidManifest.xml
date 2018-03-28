@@ -31,7 +31,7 @@
             android:name=".HospitalRegistration"
             android:label="E-Blood: Hospital Registration" />
         <activity
-            android:name=".HopitalLogin"
+            android:name=".HospitalLogin"
             android:label="E-Blood: Hospital Login" />
         <activity
             android:name=".DonorList"

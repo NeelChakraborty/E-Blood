@@ -63,7 +63,13 @@ public class DonorLogin extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                signInUser();
+                if(emailEditText.getText().toString().isEmpty() ||
+                    passwordEditText.getText().toString().isEmpty()){
+                    Toast.makeText(DonorLogin.this, "Please fill up all the fields",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                    signInUser();
             }
         });
     }
@@ -83,13 +89,12 @@ public class DonorLogin extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(DonorLogin.this, "Wrong username or password",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }else {
                             Intent donorDetailsIntent = new Intent(DonorLogin.this, DonorDetails.class);
                             startActivity(donorDetailsIntent);
                         }
 
-                        // ...
                     }
                 });
 

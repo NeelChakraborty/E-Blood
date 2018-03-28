@@ -93,7 +93,7 @@
                         android:id="@+id/location_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Location"
+                        android:hint="City"
                         android:inputType="text" />
 
                 </android.support.design.widget.TextInputLayout>

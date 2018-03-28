@@ -114,51 +114,6 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Gender:"
-                    android:textSize="24sp" />
-
-                <RadioGroup
-                    style="@style/RadioButtons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/male_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Male"
-                        android:textColor="#757575" />
-
-                    <RadioButton
-                        android:id="@+id/female_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Female"
-                        android:textColor="#757575" />
-
-                    <RadioButton
-                        android:id="@+id/others_radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:buttonTint="#D32F2F"
-                        android:text="Others"
-                        android:textColor="#757575" />
-                </RadioGroup>
-
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"

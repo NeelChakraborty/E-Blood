@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HopitalLogin extends AppCompatActivity {
+public class HospitalLogin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -34,7 +34,7 @@ public class HopitalLogin extends AppCompatActivity {
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hospitalRegisterIntent = new Intent(HopitalLogin.this, HospitalRegistration.class);
+                Intent hospitalRegisterIntent = new Intent(HospitalLogin.this, HospitalRegistration.class);
                 startActivity(hospitalRegisterIntent);
             }
         });
@@ -66,7 +66,13 @@ public class HopitalLogin extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInHospital();
+                if (emailEditText.getText().toString().isEmpty() ||
+                    passwordEditText.getText().toString().isEmpty()){
+                    Toast.makeText(HospitalLogin.this, "Please fill up all the fields",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                    signInHospital();
             }
         });
 
@@ -86,10 +92,10 @@ public class HopitalLogin extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(HopitalLogin.this, "Wrong email or password",
-                                     Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HospitalLogin.this, "Wrong email or password",
+                                     Toast.LENGTH_LONG).show();
                         }else {
-                            Intent donorList =  new Intent(HopitalLogin.this, DonorList.class);
+                            Intent donorList =  new Intent(HospitalLogin.this, DonorList.class);
                             startActivity(donorList);
                         }
 
