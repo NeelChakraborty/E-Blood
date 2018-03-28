@@ -56,9 +56,11 @@ public class DonorListANeg extends Fragment {
                     String name = (String) ds.child("Name").getValue();
                     String phone = String.valueOf(ds.child("Phone").getValue());
                     String bloodGroup = (String) ds.child("BloodGroup").getValue();
+                    Double lat = (Double) ds.child("Latitude").getValue();
+                    Double lng = (Double) ds.child("Longitude").getValue();
 
                     if (Objects.equals(bloodGroup, "A-")){
-                        donorsANeg.add(new DonorListStructure(name, phone, bloodGroup));
+                        donorsANeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
                         Log.d(TAG, "Donors is: " + donorsANeg);
                     }
 

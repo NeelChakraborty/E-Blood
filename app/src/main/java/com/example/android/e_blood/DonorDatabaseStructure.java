@@ -16,44 +16,32 @@ public class DonorDatabaseStructure {
 
     }
 
-    DonorDatabaseStructure(String name, long phone, int age, String bloodGroup) {
+    DonorDatabaseStructure(String name, long phone, int age, String bloodGroup, Double lat, Double lng) {
         this.name = name;
         this.phone = phone;
         this.age = age;
         this.bloodGroup = bloodGroup;
-        //this.lat = lat;
-        //this.lng = lng;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public long getPhone() {
         return phone;
-    }
-
-    public void setPhone(long phone) {
-        this.phone = phone;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getBloodGroup() {
         return bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
+    public  Double getLat(){ return lat;}
+
+    public  Double getLng(){ return lng;}
 }

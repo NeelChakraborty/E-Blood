@@ -87,6 +87,19 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
                 v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", currentDonor.getPhone(), null)));
             }
         });
+
+        final Double lat = currentDonor.getLat();
+        final Double lng = currentDonor.getLng();
+
+        Button navbutton = donorList.findViewById(R.id.navigate);
+        navbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                v.getContext().startActivity(new Intent(android.content.Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/?daddr="+lat+","+lng)));
+
+            }
+        });
+
         return donorList;
     }
 }

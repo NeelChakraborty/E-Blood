@@ -78,7 +78,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         ageEditText = (EditText) findViewById(R.id.age_edit_text);
         bloodgroupSpinner = (Spinner) findViewById(R.id.blood_group_spinner);
         registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setEnabled(false);
+        registerButton.setVisibility(View.INVISIBLE);
 
         //ArrayAdapter for the Blood Group Spinner
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -126,8 +126,8 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
 
     //RegisterUser
     private void registerUser() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -156,12 +156,13 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         int age = Integer.parseInt(ageEditText.getText().toString());
         String bloodGroup = userBloodGroup;
 
-        DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup);
+        DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup, lat, lng);
         donorDatabase.child("Donors").child(user.getUid()).child("Name").setValue(donorDatabaseStructure.getName());
         donorDatabase.child("Donors").child(user.getUid()).child("Phone").setValue(donorDatabaseStructure.getPhone());
         donorDatabase.child("Donors").child(user.getUid()).child("Age").setValue(donorDatabaseStructure.getAge());
         donorDatabase.child("Donors").child(user.getUid()).child("BloodGroup").setValue(donorDatabaseStructure.getBloodGroup());
-
+        donorDatabase.child("Donors").child(user.getUid()).child("Latitude").setValue(donorDatabaseStructure.getLat());
+        donorDatabase.child("Donors").child(user.getUid()).child("Longitude").setValue(donorDatabaseStructure.getLng());
     }
 
     @Override
@@ -186,9 +187,9 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
     public void onLocationChanged(Location location) {
         lat = Double.valueOf(Double.toString(location.getLatitude()));
         lng = Double.valueOf(Double.toString(location.getLongitude()));
-        Toast.makeText(this, "Location Changed "+lat+" & "+lng, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Location Updated", Toast.LENGTH_LONG).show();
         temp.setVisibility(View.GONE);
-        registerButton.setEnabled(true);
+        registerButton.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("MissingPermission")
@@ -196,7 +197,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10);
+        locationRequest.setInterval(100);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }

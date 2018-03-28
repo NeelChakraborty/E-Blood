@@ -79,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="E-mail"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textWebEmailAddress" />
 
                 </android.support.design.widget.TextInputLayout>
 
