@@ -142,6 +142,7 @@ public class HospitalRegistration extends AppCompatActivity implements GoogleApi
 
         hospitalDatabase.child("Hospitals").child(user.getUid()).setValue(hospital);
         hospitalDatabase.child("Hospitals").child(user.getUid()).child("city").setValue(city);
+        Log.d(TAG, "Hospital UserID: "+hospitalDatabase.child("Hospitals").child(user.getUid()));
     }
 
     @Override

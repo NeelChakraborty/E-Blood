@@ -1,7 +1,5 @@
 package com.example.android.e_blood;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +32,12 @@ public class DonorListABNeg extends Fragment {
     }
 
     DatabaseReference donorDatabase = FirebaseDatabase.getInstance().getReference().child("Donors");
+    DonorList donorList = new DonorList();
+
+    public String getDonorList() {
+        return donorList.getHospitalCity();
+    }
+
     String TAG = "DonorListABNeg";
     DonorAdapter donorAdapter;
 
@@ -54,16 +57,18 @@ public class DonorListABNeg extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String name = (String) ds.child("name").getValue();
+                    String donor_city = (String) ds.child("city").getValue();
                     String phone = String.valueOf(ds.child("phone").getValue());
                     String bloodGroup = (String) ds.child("bloodGroup").getValue();
                     Double lat = (Double) ds.child("latitude").getValue();
                     Double lng = (Double) ds.child("longitude").getValue();
 
-                    if (Objects.equals(bloodGroup, "AB-")){
-                        donorsABNeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
-                        Log.d(TAG, "Donors is: " + donorsABNeg);
+                    if (Objects.equals(getDonorList(), donor_city)){
+                        if (Objects.equals(bloodGroup, "AB-")){
+                            donorsABNeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
+                            Log.d(TAG, "Donors is: " + donorsABNeg);
+                        }
                     }
-
                 }
                 donorAdapter = new DonorAdapter(DonorListABNeg.this, donorsABNeg);
                 ListView listView = (ListView) view.findViewById(R.id.list_abneg);

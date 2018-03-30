@@ -94,6 +94,7 @@ public class DonorDetails extends AppCompatActivity {
         for(DataSnapshot ds : dataSnapshot.getChildren()){
             Log.d(TAG, "UserID inside ShowData: "+userID);
             Log.d(TAG, "User Name inside ShowData: "+ds.child(userID).child("name").getValue());
+            Log.d(TAG, "DS inside ShowData: "+ds.child(userID));
 
             nameTextView.setText(String.valueOf(ds.child(userID).child("name").getValue()));
             contactTextView.setText(String.valueOf(ds.child(userID).child("phone").getValue()));

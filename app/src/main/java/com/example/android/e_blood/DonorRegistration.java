@@ -174,6 +174,8 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         long phone = Long.parseLong(phoneEditText.getText().toString());
         int age = Integer.parseInt(ageEditText.getText().toString());
         String bloodGroup = userBloodGroup;
+        Log.d(TAG, "Hospital UserID: "+donorDatabase.child("Hospitals").child(user.getUid()));
+
 
         DonorDatabaseStructure donorDatabaseStructure = new DonorDatabaseStructure(name, phone, age, bloodGroup, lat, lng);
         donorDatabase.child("Donors").child(user.getUid()).setValue(donorDatabaseStructure);
