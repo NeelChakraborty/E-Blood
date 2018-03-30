@@ -6,30 +6,13 @@ package com.example.android.e_blood;
 
 public class Hospital {
     String name;
-    String location;
 
-    Hospital(){
-
-    }
-
-    Hospital(String name, String location){
+    Hospital(String name){
         this.name = name;
-        this.location = location;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

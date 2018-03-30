@@ -53,6 +53,16 @@
                     android:textColor="#D32F2F"
                     android:textSize="34sp" />
 
+            <TextView
+                android:id="@+id/fetching_location_hospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="Please wait while we fetch your location..."
+                android:textColor="#D32F2F"
+                android:textSize="14sp" />
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -63,8 +73,7 @@
                         android:id="@+id/email_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="E-Mail"
-                        android:inputType="textEmailAddress" />
+                        android:hint="E-Mail" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -88,13 +97,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-                    <EditText
-                        android:id="@+id/location_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="City"
-                        android:inputType="text" />
 
                 </android.support.design.widget.TextInputLayout>
 

@@ -53,11 +53,11 @@ public class DonorListABPos extends Fragment {
                 // whenever data at this location is updated.
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    String name = (String) ds.child("Name").getValue();
-                    String phone = String.valueOf(ds.child("Phone").getValue());
-                    String bloodGroup = (String) ds.child("BloodGroup").getValue();
-                    Double lat = (Double) ds.child("Latitude").getValue();
-                    Double lng = (Double) ds.child("Longitude").getValue();
+                    String name = (String) ds.child("name").getValue();
+                    String phone = String.valueOf(ds.child("phone").getValue());
+                    String bloodGroup = (String) ds.child("bloodGroup").getValue();
+                    Double lat = (Double) ds.child("latitude").getValue();
+                    Double lng = (Double) ds.child("longitude").getValue();
 
                     if (Objects.equals(bloodGroup, "AB+")){
                         donorsABPos.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));

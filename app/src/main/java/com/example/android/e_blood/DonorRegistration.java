@@ -29,7 +29,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -146,8 +145,8 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
 
     //RegisterUser
     private void registerUser() {
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -215,11 +214,10 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
             locality = addresses.get(0).getSubLocality();
             full_address = addresses.get(0).getAddressLine(0);
             temp.setText("Detected locality is : "+tmp+".");
+            registerButton.setVisibility(View.VISIBLE);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        registerButton.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("MissingPermission")
