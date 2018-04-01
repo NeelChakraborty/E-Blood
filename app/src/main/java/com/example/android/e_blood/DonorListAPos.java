@@ -53,7 +53,6 @@ public class DonorListAPos extends Fragment {
 
         //initializing Firebase Database Objects
         mAuth = FirebaseAuth.getInstance();
-        hospitalDatabase = FirebaseDatabase.getInstance().getReference().child("Hospitals");
         user = mAuth.getCurrentUser();
         userIDHospital = user.getUid();
 
@@ -75,16 +74,17 @@ public class DonorListAPos extends Fragment {
 
         //Fetch data from Hospital Database
         hospitalDatabase.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-
-                    hospitalCity = String.valueOf(ds.child("city").getValue());
-                    Log.d(TAG, "DS inside getData: "+hospitalCity);
-
-                    break;
+                    if(Objects.equals(ds.getKey(), user.getUid())) {
+                        hospitalCity = String.valueOf(ds.child("city").getValue());
+                        Log.d(TAG, "city inside getData: " + ds.child("city"));
+                        Log.d(TAG, "DS inside getData: " + ds);
+                    }
                 }
             }
 
@@ -111,11 +111,12 @@ public class DonorListAPos extends Fragment {
                     Double lng = (Double) ds.child("longitude").getValue();
                     String donor_city = (String) ds.child("city").getValue();
 
+                    if(Objects.equals(hospitalCity, donor_city)) {
                         if (Objects.equals(bloodGroup, "A+")) {
                             donorsAPos.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
                             Log.d(TAG, "Donors is: " + donorsAPos);
                         }
-
+                    }
                 }
                 donorAdapter = new DonorAdapter(DonorListAPos.this, donorsAPos);
                 ListView listView = (ListView) view.findViewById(R.id.list_apos);
