@@ -180,7 +180,6 @@ public class HospitalRegistration extends AppCompatActivity implements GoogleApi
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(TAG, "GoogleApiClient connection has been suspend");
         Log.i(TAG, "GoogleApiClient connection has failed");
     }
 

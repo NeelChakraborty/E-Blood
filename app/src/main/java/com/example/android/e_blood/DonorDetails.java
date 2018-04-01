@@ -1,12 +1,24 @@
 package com.example.android.e_blood;
 
+import android.annotation.SuppressLint;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +27,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class DonorDetails extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class DonorDetails extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private DatabaseReference donorDatabase;
     private String TAG = "DonorDetails";
@@ -24,11 +40,26 @@ public class DonorDetails extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView nameTextView, ageTextView, contactTextView, bloodGroupTextView, addressTextView;
     private String userID;
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
+    private Button pushLocation;
+    private Double lat;
+    private Double lng;
+    private String city;
+    private String locality;
+    private String full_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donor_details);
+
+        //initializing GoogleApiClient
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
         //Initializing views
         nameTextView = (TextView) findViewById(R.id.name_details_text_view);
@@ -36,6 +67,7 @@ public class DonorDetails extends AppCompatActivity {
         contactTextView = (TextView) findViewById(R.id.number_details_text_view);
         bloodGroupTextView = (TextView) findViewById(R.id.blood_group_details_text_view);
         addressTextView = (TextView) findViewById(R.id.address_details_text_view);
+        pushLocation = (Button) findViewById(R.id.push_location_button);
 
         //initializing Firebase Database Objects
         mAuth = FirebaseAuth.getInstance();
@@ -74,6 +106,18 @@ public class DonorDetails extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        pushLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                donorDatabase.child("Donors").child(user.getUid()).child("latitude").setValue(lat);
+                donorDatabase.child("Donors").child(user.getUid()).child("longitude").setValue(lng);
+                donorDatabase.child("Donors").child(user.getUid()).child("city").setValue(city);
+                donorDatabase.child("Donors").child(user.getUid()).child("locality").setValue(locality);
+                donorDatabase.child("Donors").child(user.getUid()).child("fullAddress").setValue(full_address);
+                Toast.makeText(DonorDetails.this, "Location Updated", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void showData(DataSnapshot dataSnapshot) {
@@ -95,6 +139,9 @@ public class DonorDetails extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        //connecting API
+        googleApiClient.connect();
+
     }
 
     @Override
@@ -103,6 +150,44 @@ public class DonorDetails extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        //disconnecting API
+        googleApiClient.disconnect();
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        lat = Double.valueOf(Double.toString(location.getLatitude()));
+        lng = Double.valueOf(Double.toString(location.getLongitude()));
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            city = addresses.get(0).getLocality();
+            locality = addresses.get(0).getSubLocality();
+            full_address = addresses.get(0).getAddressLine(0);
+            Log.d(TAG, "Location Rahul "+location.getLatitude());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(100000);
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i(TAG, "GoogleApiClient connection has been suspend");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG, "GoogleApiClient connection has failed");
+    }
 }
