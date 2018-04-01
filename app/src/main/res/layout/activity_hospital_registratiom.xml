@@ -73,7 +73,8 @@
                         android:id="@+id/email_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="E-Mail" />
+                        android:hint="E-Mail"
+                        android:inputType="textEmailAddress" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -87,8 +88,7 @@
                         android:id="@+id/name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Hospital Name"
-                        android:inputType="textWebEmailAddress" />
+                        android:hint="Hospital Name" />
 
                 </android.support.design.widget.TextInputLayout>
 
