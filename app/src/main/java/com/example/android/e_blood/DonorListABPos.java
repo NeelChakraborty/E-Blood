@@ -111,12 +111,10 @@ public class DonorListABPos extends Fragment {
                     Double lng = (Double) ds.child("longitude").getValue();
                     String donor_city = (String) ds.child("city").getValue();
 
-                    if (Objects.equals(hospitalCity, donor_city)) {
                         if (Objects.equals(bloodGroup, "AB+")) {
                             donorsABPos.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
                             Log.d(TAG, "Donors is: " + donorsABPos);
                         }
-                    }
                 }
                 donorAdapter = new DonorAdapter(DonorListABPos.this, donorsABPos);
                 ListView listView = (ListView) view.findViewById(R.id.list_abpos);

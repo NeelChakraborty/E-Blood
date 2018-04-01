@@ -111,12 +111,10 @@ public class DonorListANeg extends Fragment {
                     Double lng = (Double) ds.child("longitude").getValue();
                     String donor_city = (String) ds.child("city").getValue();
 
-                    if (Objects.equals(hospitalCity, donor_city)) {
                         if (Objects.equals(bloodGroup, "A-")) {
                             donorsANeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
                             Log.d(TAG, "Donors is: " + donorsANeg);
                         }
-                    }
                 }
                 donorAdapter = new DonorAdapter(DonorListANeg.this, donorsANeg);
                 ListView listView = (ListView) view.findViewById(R.id.list_aneg);
