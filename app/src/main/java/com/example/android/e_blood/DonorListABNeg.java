@@ -113,7 +113,7 @@ public class DonorListABNeg extends Fragment {
                     Log.d(TAG, "Hospital and Donor City:"+hospitalCity+" "+donor_city);
 
                     if(Objects.equals(hospitalCity, donor_city)) {
-                        if (Objects.equals(bloodGroup, "AB+")) {
+                        if (Objects.equals(bloodGroup, "AB-")) {
                             donorsABNeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
                             Log.d(TAG, "Donors is: " + donorsABNeg);
                         }
