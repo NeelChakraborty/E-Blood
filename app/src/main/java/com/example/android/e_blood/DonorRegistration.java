@@ -161,6 +161,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
                         } else {
                             writeNewDonor(task.getResult().getUser());
                             Intent userDetails = new Intent(DonorRegistration.this, DonorDetails.class);
+                            userDetails.putExtra("fromActivity","DonorRegistration");
                             startActivity(userDetails);
                         }
                     }
@@ -182,6 +183,7 @@ public class DonorRegistration extends AppCompatActivity implements GoogleApiCli
         donorDatabase.child("Donors").child(user.getUid()).child("city").setValue(city);
         donorDatabase.child("Donors").child(user.getUid()).child("locality").setValue(locality);
         donorDatabase.child("Donors").child(user.getUid()).child("fullAddress").setValue(full_address);
+        donorDatabase.child("Donors").child(user.getUid()).child("donationCount").setValue(0);
     }
 
     @Override

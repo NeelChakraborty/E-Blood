@@ -10,13 +10,15 @@ public class DonorListStructure {
     private String bloodGroup;
     private Double lat;
     private Double lng;
+    private String donorID;
 
-    DonorListStructure(String name, String phone, String bloodGroup, Double lat, Double lng) {
+    DonorListStructure(String name, String phone, String bloodGroup, Double lat, Double lng, String donorID) {
         this.name = name;
         this.phone = phone;
         this.bloodGroup = bloodGroup;
         this.lat = lat;
         this.lng = lng;
+        this.donorID = donorID;
     }
 
     String getName() {
@@ -36,5 +38,9 @@ public class DonorListStructure {
 
     public Double getLng() {
         return lng;
+    }
+
+    public String getDonorID() {
+        return donorID;
     }
 }

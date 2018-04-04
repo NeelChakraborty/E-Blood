@@ -92,6 +92,7 @@ public class DonorLogin extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }else {
                             Intent donorDetailsIntent = new Intent(DonorLogin.this, DonorDetails.class);
+                            donorDetailsIntent.putExtra("fromActivity","DonorLogin");
                             startActivity(donorDetailsIntent);
                         }
 

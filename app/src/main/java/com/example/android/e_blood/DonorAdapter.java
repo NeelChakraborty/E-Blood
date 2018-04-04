@@ -26,6 +26,7 @@ import java.util.List;
 
 public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
 
+
     public DonorAdapter(DonorListOPos context, ArrayList<DonorListStructure> DonorArrayList){
         super(context.getActivity(), 0, DonorArrayList);
     }
@@ -76,7 +77,7 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
         TextView donorPhone = (TextView)donorList.findViewById(R.id.PhoneListItem);
         donorPhone.setText(currentDonor.getPhone());
 
-        TextView donorBloodGroup = (TextView)donorList.findViewById(R.id.BGListItem);
+        final TextView donorBloodGroup = (TextView)donorList.findViewById(R.id.BGListItem);
         donorBloodGroup.setText(currentDonor.getBloodGroup());
 
 
@@ -95,7 +96,19 @@ public class DonorAdapter extends ArrayAdapter<DonorListStructure> {
         navbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(new Intent(android.content.Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/?daddr="+lat+","+lng)));
+                v.getContext().startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/?daddr="+lat+","+lng)));
+
+            }
+        });
+
+        final String donorUid = currentDonor.getDonorID();
+
+        donorList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent donorDetails = new Intent(view.getContext(), DonorDetails.class);
+                donorDetails.putExtra("fromActivity", donorUid);
+                view.getContext().startActivity(donorDetails);
 
             }
         });

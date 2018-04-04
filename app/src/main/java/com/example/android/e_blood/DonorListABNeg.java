@@ -1,5 +1,6 @@
 package com.example.android.e_blood;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -110,11 +112,14 @@ public class DonorListABNeg extends Fragment {
                     Double lat = (Double) ds.child("latitude").getValue();
                     Double lng = (Double) ds.child("longitude").getValue();
 
+                    //Donor ID
+                    String donorUid = ds.getKey();
+
                     Log.d(TAG, "Hospital and Donor City:"+hospitalCity+" "+donor_city);
 
                     if(Objects.equals(hospitalCity, donor_city)) {
                         if (Objects.equals(bloodGroup, "AB-")) {
-                            donorsABNeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
+                            donorsABNeg.add(new DonorListStructure(name, phone, bloodGroup, lat, lng, donorUid));
                             Log.d(TAG, "Donors is: " + donorsABNeg);
                         }
                     }
@@ -122,6 +127,7 @@ public class DonorListABNeg extends Fragment {
                 donorAdapter = new DonorAdapter(DonorListABNeg.this, donorsABNeg);
                 ListView listView = (ListView) view.findViewById(R.id.list_abneg);
                 listView.setAdapter(donorAdapter);
+                listView.setClickable(true);
             }
 
             @Override

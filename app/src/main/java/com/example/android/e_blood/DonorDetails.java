@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,11 +40,11 @@ public class DonorDetails extends AppCompatActivity implements GoogleApiClient.C
     private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    private TextView nameTextView, ageTextView, contactTextView, bloodGroupTextView, addressTextView;
+    private TextView nameTextView, ageTextView, contactTextView, bloodGroupTextView, addressTextView, lastDonatedView, donationCountTextView;
     private String userID;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    private Button pushLocation;
+    private Button pushLocation, pushDonation;
     private Double lat;
     private Double lng;
     private String city;
@@ -67,13 +69,27 @@ public class DonorDetails extends AppCompatActivity implements GoogleApiClient.C
         contactTextView = (TextView) findViewById(R.id.number_details_text_view);
         bloodGroupTextView = (TextView) findViewById(R.id.blood_group_details_text_view);
         addressTextView = (TextView) findViewById(R.id.address_details_text_view);
+        lastDonatedView = (TextView) findViewById(R.id.update_donation_text);
         pushLocation = (Button) findViewById(R.id.push_location_button);
+        pushDonation = (Button) findViewById(R.id.update_donation_button);
+        donationCountTextView = (TextView) findViewById(R.id.donation_count_text);
 
         //initializing Firebase Database Objects
         mAuth = FirebaseAuth.getInstance();
         donorDatabase = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getCurrentUser();
-        userID = user.getUid();
+
+        String fromActivity = getIntent().getStringExtra("fromActivity");
+
+        if (fromActivity.equals("DonorLogin") || fromActivity.equals("DonorRegistration")){
+            userID = user.getUid();
+        }
+        else {
+            userID = fromActivity;
+            pushDonation.setVisibility(View.INVISIBLE);
+            pushLocation.setVisibility(View.INVISIBLE);
+        }
+
 
         //Authentication Listener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -90,6 +106,35 @@ public class DonorDetails extends AppCompatActivity implements GoogleApiClient.C
                 // ...
             }
         };
+
+        //UPDATE DONATION
+
+        pushDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+                donorDatabase.child("Donors").child(user.getUid()).child("lastDonated").setValue(currentDate);
+
+                donorDatabase.child("Donors").child(user.getUid()).child("donationCount").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        long nOD = (long) dataSnapshot.getValue();
+                        nOD = nOD + 1;
+                        dataSnapshot.getRef().setValue(nOD);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                //donorDatabase.child("Donors").child(user.getUid()).child("donationCount").setValue("" + donationNumber);
+                Toast.makeText(DonorDetails.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         // Read from the database
         donorDatabase.addValueEventListener(new ValueEventListener() {
@@ -110,11 +155,11 @@ public class DonorDetails extends AppCompatActivity implements GoogleApiClient.C
         pushLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                donorDatabase.child("Donors").child(user.getUid()).child("latitude").setValue(lat);
-                donorDatabase.child("Donors").child(user.getUid()).child("longitude").setValue(lng);
-                donorDatabase.child("Donors").child(user.getUid()).child("city").setValue(city);
-                donorDatabase.child("Donors").child(user.getUid()).child("locality").setValue(locality);
-                donorDatabase.child("Donors").child(user.getUid()).child("fullAddress").setValue(full_address);
+                donorDatabase.child("Donors").child(userID).child("latitude").setValue(lat);
+                donorDatabase.child("Donors").child(userID).child("longitude").setValue(lng);
+                donorDatabase.child("Donors").child(userID).child("city").setValue(city);
+                donorDatabase.child("Donors").child(userID).child("locality").setValue(locality);
+                donorDatabase.child("Donors").child(userID).child("fullAddress").setValue(full_address);
                 Toast.makeText(DonorDetails.this, "Location Updated", Toast.LENGTH_LONG).show();
             }
         });
@@ -131,6 +176,12 @@ public class DonorDetails extends AppCompatActivity implements GoogleApiClient.C
             ageTextView.setText(String.valueOf(ds.child(userID).child("age").getValue()));
             bloodGroupTextView.setText(String.valueOf(ds.child(userID).child("bloodGroup").getValue()));
             addressTextView.setText(String.valueOf(ds.child(userID).child("fullAddress").getValue()));
+            donationCountTextView.setText(String.valueOf(ds.child(userID).child("donationCount").getValue()));
+            if(ds.child(userID).hasChild("lastDonated")) {
+                lastDonatedView.setText(String.valueOf(ds.child(userID).child("lastDonated").getValue()));
+            }
+            else
+                lastDonatedView.setText("Not Donated");
             break;
         }
     }

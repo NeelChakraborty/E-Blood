@@ -111,9 +111,12 @@ public class DonorListOPos extends Fragment {
                     Double lng = (Double) ds.child("longitude").getValue();
                     String donor_city = (String) ds.child("city").getValue();
 
+                    //Donor ID
+                    String donorUid = ds.getKey();
+
                     if(Objects.equals(hospitalCity, donor_city)) {
                         if (Objects.equals(bloodGroup, "O+")) {
-                            donorsOPos.add(new DonorListStructure(name, phone, bloodGroup, lat, lng));
+                            donorsOPos.add(new DonorListStructure(name, phone, bloodGroup, lat, lng, donorUid));
                             Log.d(TAG, "Donors is: " + donorsOPos);
                         }
                     }
